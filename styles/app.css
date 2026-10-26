@@ -300,6 +300,12 @@ html.is-reduced * {
   transition: none !important;
 }
 
+/* client view: framed phone only, no demo chrome */
+html.is-client .demo__bar,
+html.is-client .demo__footer {
+  display: none;
+}
+
 
 /* ============================================================
    Screen shell + native chrome

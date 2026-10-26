@@ -8,8 +8,10 @@
   const STATES = window.UTKA_DATA;
   const params = new URLSearchParams(window.location.search);
   const isCapture = params.get("capture") === "1" || params.get("capture") === "true";
+  const isDemo = params.get("demo") === "1" || params.get("demo") === "true";
 
   document.documentElement.classList.toggle("is-capture", isCapture);
+  document.documentElement.classList.toggle("is-client", !isCapture && !isDemo);
 
   const screen = document.getElementById("screen");
   const scroll = document.getElementById("scroll");
