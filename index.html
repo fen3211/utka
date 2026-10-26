@@ -1,302 +1,259 @@
 <!doctype html>
 <html lang="ru">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#F5EFE5">
-<title>UTKA — Премиальное приложение лояльности кофеен | Тестовое задание</title>
-<link rel="stylesheet" href="assets/fonts.css">
-<style>
-  :root{
-    --bg:#F5EFE5; --surface:#FBF7F0; --lilac:#D8CFD5; --lilac-deep:#B9ACB2;
-    --ink:#231D18; --ink-soft:#6D6358; --espresso:#221C17;
-    --cream:#F6EDDF; --honey:#E3A843; --honey-deep:#9D6314;
-    --card-cream:#F3E4C9; --line:rgba(35,29,24,.10);
-    --serif:"Cormorant Garamond",Georgia,serif;
-  }
-  *{ margin:0; padding:0; box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  body{ font-family:"Manrope",system-ui,sans-serif; background:var(--bg); color:var(--ink); line-height:1.5; -webkit-font-smoothing:antialiased; }
-  .wrap{ max-width:1120px; margin:0 auto; padding:0 24px; }
-  a{ color:inherit; }
-
-  /* header */
-  .masthead{ position:sticky; top:0; z-index:50; background:rgba(245,239,229,.92); backdrop-filter:blur(10px); border-bottom:1px solid var(--line); }
-  .masthead__in{ display:flex; align-items:center; justify-content:space-between; height:64px; }
-  .brand{ display:flex; align-items:center; gap:8px; font-weight:800; font-size:22px; letter-spacing:-.02em; }
-  .brand__dot{ width:9px; height:9px; border-radius:50%; background:var(--honey); }
-  .nav{ display:flex; gap:26px; font-size:14px; font-weight:600; color:var(--ink-soft); }
-  .nav a{ text-decoration:none; }
-  .nav a:hover{ color:var(--ink); }
-  .nav .cta{ color:var(--cream); background:var(--espresso); padding:9px 18px; border-radius:999px; }
-  .nav .cta:hover{ color:var(--cream); }
-
-  /* hero */
-  .hero{ padding:88px 0 72px; text-align:center; }
-  .hero__eyebrow{ font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--honey-deep); margin-bottom:18px; }
-  .hero h1{ font-size:clamp(38px,5.4vw,64px); font-weight:800; letter-spacing:-.03em; line-height:1.05; }
-  .hero__quote{ font-family:var(--serif); font-style:italic; font-size:clamp(22px,2.6vw,30px); color:var(--ink-soft); margin:22px auto 0; max-width:640px; }
-  .hero__meta{ margin-top:26px; display:flex; justify-content:center; gap:10px; flex-wrap:wrap; }
-  .chip{ font-size:13px; font-weight:700; letter-spacing:.06em; color:var(--ink); border:1px solid var(--line); background:var(--surface); padding:8px 16px; border-radius:999px; }
-  .chip--honey{ background:var(--honey); border-color:transparent; }
-
-  /* screens */
-  .section{ padding:64px 0; border-top:1px solid var(--line); }
-  .section__head{ display:flex; align-items:baseline; justify-content:space-between; gap:24px; margin-bottom:40px; }
-  .section__kicker{ font-size:12px; font-weight:700; letter-spacing:.2em; text-transform:uppercase; color:var(--honey-deep); margin-bottom:10px; }
-  .section h2{ font-size:32px; font-weight:800; letter-spacing:-.02em; }
-  .section__note{ font-size:15px; color:var(--ink-soft); max-width:420px; text-align:right; }
-  .duo{ display:grid; grid-template-columns:1fr 1fr; gap:40px; }
-  .screen-card{ display:flex; flex-direction:column; gap:18px; }
-  .screen-frame{ border-radius:30px; overflow:hidden; box-shadow:0 24px 60px rgba(35,29,24,.16), 0 0 0 1px rgba(35,29,24,.06); background:var(--surface); }
-  .screen-frame img{ width:100%; display:block; }
-  .screen-card__cap h3{ font-size:17px; font-weight:800; letter-spacing:.02em; }
-  .screen-card__cap p{ font-size:14px; color:var(--ink-soft); margin-top:4px; max-width:400px; }
-  .screen-card__list{ list-style:none; margin-top:10px; display:flex; flex-direction:column; gap:8px; }
-  .screen-card__list li{ font-size:13.5px; color:var(--ink); padding-left:22px; position:relative; }
-  .screen-card__list li::before{ content:""; position:absolute; left:2px; top:7px; width:8px; height:8px; border-radius:50%; background:var(--honey); }
-
-  /* character */
-  .char{ display:grid; grid-template-columns:1fr 1fr 1fr; gap:24px; }
-  .char-card{ background:var(--lilac); border-radius:28px; padding:28px 28px 0; display:flex; flex-direction:column; align-items:center; justify-content:flex-end; min-height:420px; position:relative; overflow:hidden; }
-  .char-card::after{ content:""; position:absolute; inset:auto 0 0 0; height:120px; background:linear-gradient(transparent, rgba(35,29,24,.18)); pointer-events:none; }
-  .char-card img{ height:360px; object-fit:contain; filter:drop-shadow(0 18px 26px rgba(35,29,24,.28)); position:relative; z-index:1; }
-  .char-card figcaption{ position:absolute; left:24px; bottom:20px; font-size:14px; font-weight:700; color:var(--ink); background:rgba(251,247,240,.85); padding:7px 14px; border-radius:999px; z-index:2; }
-  .char-note{ margin-top:26px; font-size:14px; color:var(--ink-soft); max-width:760px; }
-
-  /* system */
-  .tokens{ display:grid; grid-template-columns:repeat(5,1fr); gap:14px; margin-bottom:44px; }
-  .token{ border-radius:20px; overflow:hidden; border:1px solid var(--line); background:var(--surface); }
-  .token__sw{ height:96px; }
-  .token__meta{ padding:12px 14px; }
-  .token__meta b{ display:block; font-size:13px; }
-  .token__meta span{ font-size:12px; color:var(--ink-soft); }
-  .type-row{ display:grid; grid-template-columns:180px 1fr; gap:20px; align-items:center; padding:20px 0; border-top:1px solid var(--line); }
-  .type-row:first-of-type{ border-top:none; }
-  .type-row__meta{ font-size:12px; color:var(--ink-soft); }
-  .type-row__meta b{ display:block; font-size:14px; color:var(--ink); }
-  .type-row__sample{ font-size:34px; font-weight:800; letter-spacing:-.02em; }
-  .type-row__sample--quote{ font-family:var(--serif); font-style:italic; font-weight:500; }
-  .type-row__sample--ui{ font-size:17px; font-weight:600; }
-  .type-row__sample--caption{ font-size:12px; font-weight:600; letter-spacing:.14em; text-transform:uppercase; color:var(--honey-deep); }
-
-  /* mechanics */
-  .mech{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
-  .mech-card{ background:var(--surface); border:1px solid var(--line); border-radius:24px; padding:26px; }
-  .mech-card__icon{ width:46px; height:46px; border-radius:14px; background:var(--lilac); display:flex; align-items:center; justify-content:center; margin-bottom:16px; }
-  .mech-card__icon svg{ width:24px; height:24px; }
-  .mech-card h3{ font-size:17px; font-weight:800; margin-bottom:8px; }
-  .mech-card p{ font-size:14px; color:var(--ink-soft); }
-  .mech-rule{ margin-top:22px; background:var(--card-cream); border-radius:18px; padding:18px 22px; font-size:15px; font-weight:600; display:flex; gap:12px; align-items:center; }
-  .mech-rule::before{ content:"!"; flex:0 0 auto; width:26px; height:26px; border-radius:50%; background:var(--espresso); color:var(--honey); display:flex; align-items:center; justify-content:center; font-weight:800; }
-
-  /* footer */
-  .footer{ background:var(--espresso); color:var(--cream); padding:72px 0 88px; margin-top:72px; }
-  .footer h2{ font-size:26px; font-weight:800; letter-spacing:-.02em; }
-  .footer .brand{ color:var(--cream); }
-  .footer-grid{ display:grid; grid-template-columns:1fr 1fr; gap:40px; margin-top:36px; }
-  .footer h3{ font-size:13px; font-weight:700; letter-spacing:.14em; text-transform:uppercase; color:var(--honey); margin-bottom:14px; }
-  .footer p, .footer li{ font-size:14px; color:rgba(246,237,223,.82); }
-  .footer ul{ list-style:none; display:flex; flex-direction:column; gap:10px; }
-  .footer code{ font-family:ui-monospace,Consolas,monospace; font-size:13px; background:rgba(246,237,223,.1); padding:2px 7px; border-radius:6px; }
-  .footer .honest{ background:rgba(246,237,223,.06); border:1px solid rgba(246,237,223,.14); border-radius:18px; padding:18px 22px; font-size:14px; line-height:1.7; }
-
-  @media (max-width:900px){
-    .duo,.char,.tokens,.mech,.footer-grid{ grid-template-columns:1fr; }
-    .section__head{ flex-direction:column; gap:10px; }
-    .section__note{ text-align:left; }
-    .nav a:not(.cta){ display:none; }
-  }
-</style>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="theme-color" content="#F5EFE5">
+  <title>UTKA — интерактивный прототип</title>
+  <link rel="stylesheet" href="assets/fonts.css">
+  <link rel="stylesheet" href="styles/app.css">
 </head>
 <body>
 
-<header class="masthead">
-  <div class="wrap masthead__in">
-    <div class="brand">utka<span class="brand__dot"></span></div>
-    <nav class="nav">
-      <a href="#screens">Экраны</a>
-      <a href="#character">Персонаж</a>
-      <a href="#system">Система</a>
-      <a href="#mechanics">Механики</a>
-      <a class="cta" href="prototype.html">Открыть прототип</a>
-    </nav>
-  </div>
-</header>
+  <!-- ICON SPRITE -->
+  <svg class="svg-sprite" aria-hidden="true" focusable="false">
+    <symbol id="i-paw" viewBox="0 0 32 32">
+      <ellipse cx="9.3" cy="15.2" rx="3.1" ry="6.1" transform="rotate(36 9.3 15.2)"/>
+      <ellipse cx="16" cy="12.2" rx="3.3" ry="7"/>
+      <ellipse cx="22.7" cy="15.2" rx="3.1" ry="6.1" transform="rotate(-36 22.7 15.2)"/>
+      <ellipse cx="16" cy="23.1" rx="5" ry="3.6"/>
+    </symbol>
+    <symbol id="i-jar" viewBox="0 0 32 32">
+      <rect x="8.4" y="4.2" width="15.2" height="3.8" rx="1.5"/>
+      <path d="M7.4 10.1h17.2v12.7a4.4 4.4 0 0 1-4.4 4.4h-8.4a4.4 4.4 0 0 1-4.4-4.4V10.1Z"/>
+      <path d="M7.4 12.7h17.2" opacity=".42"/>
+    </symbol>
+    <symbol id="i-jar-full" viewBox="0 0 32 32">
+      <rect x="8.4" y="4.2" width="15.2" height="3.8" rx="1.5"/>
+      <path d="M7.4 10.1h17.2v12.7a4.4 4.4 0 0 1-4.4 4.4h-8.4a4.4 4.4 0 0 1-4.4-4.4V10.1Z"/>
+      <path d="M7.4 12.7h17.2" opacity=".42"/>
+      <g fill="#E3A843" stroke="none">
+        <ellipse cx="13" cy="18.4" rx="1.7" ry="2.5" transform="rotate(-24 13 18.4)"/>
+        <ellipse cx="19.4" cy="19.9" rx="1.7" ry="2.5" transform="rotate(20 19.4 19.9)"/>
+        <ellipse cx="16.1" cy="23.6" rx="1.7" ry="2.5" transform="rotate(-8 16.1 23.6)"/>
+      </g>
+    </symbol>
+    <symbol id="i-cup" viewBox="0 0 32 32">
+      <path d="M7.7 12.7h13.9v5.5a5.9 5.9 0 0 1-5.9 5.9h-2.1a5.9 5.9 0 0 1-5.9-5.9v-5.5Z"/>
+      <path d="M21.6 14.5h1.3a3.1 3.1 0 0 1 0 6.2h-1.3"/>
+      <path d="M6.6 27.4h16.2"/>
+      <path d="M11.7 9.4c0-1.2.9-2.1 2.1-2.1M16.2 9.4c0-1.2.9-2.1 2.1-2.1" opacity=".7"/>
+    </symbol>
+    <symbol id="i-bean" viewBox="0 0 32 32">
+      <ellipse cx="16" cy="16" rx="7.2" ry="10" transform="rotate(35 16 16)"/>
+      <path d="M11.3 22.5c3.6-1.2 6-4 7.2-8.6" opacity=".65"/>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 32 32">
+      <path d="M16 27.2s8.2-6.9 8.2-13.9a8.2 8.2 0 1 0-16.4 0c0 7 8.2 13.9 8.2 13.9Z"/>
+      <circle cx="16" cy="13.2" r="2.8"/>
+    </symbol>
+    <symbol id="i-qr" viewBox="0 0 32 32">
+      <rect x="4.5" y="4.5" width="8.2" height="8.2" rx="1.6"/>
+      <rect x="19.3" y="4.5" width="8.2" height="8.2" rx="1.6"/>
+      <rect x="4.5" y="19.3" width="8.2" height="8.2" rx="1.6"/>
+      <path d="M19.5 19.5h3.2v3.2h-3.2zM24.8 24.8h2.7v2.7h-2.7zM20 27.5h2.1v-2.1M27.5 20v2.8h-2.7" stroke-width="1.4"/>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M4.5 12h14M13 6.5l5.5 5.5L13 17.5"/>
+    </symbol>
+    <symbol id="i-chevron-down" viewBox="0 0 24 24">
+      <path d="m6.5 9.5 5.5 5.5 5.5-5.5"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <rect x="5.5" y="10.3" width="13" height="10" rx="2.6"/>
+      <path d="M8.6 10.3V7.8a3.4 3.4 0 0 1 6.8 0v2.5"/>
+    </symbol>
+    <symbol id="i-close" viewBox="0 0 24 24">
+      <path d="m7 7 10 10M17 7 7 17"/>
+    </symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24">
+      <path d="M12 4.4c-5 0-8.7 3.2-8.7 7.2 0 2.2 1.1 4.1 2.9 5.4v3.5l3.4-1.9c.8.2 1.6.3 2.4.3 5 0 8.7-3.2 8.7-7.3S17 4.4 12 4.4Z"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14"/>
+    </symbol>
+    <symbol id="i-send" viewBox="0 0 24 24">
+      <path d="M12 19V5M6.5 10.5 12 5l5.5 5.5"/>
+    </symbol>
+  </svg>
 
-<section class="hero wrap">
-  <div class="hero__eyebrow">Тестовое задание · дизайн мобильного приложения</div>
-  <h1>Кофейная лояльность<br>с характером</h1>
-  <p class="hero__quote">«Жду. Столик у окна уже присмотрела.»</p>
-  <div class="hero__meta">
-    <span class="chip">Native iOS · 390×844</span>
-    <span class="chip">Два состояния — один компонентный слой</span>
-    <span class="chip chip--honey">3D-персонаж · прозрачный PNG</span>
-  </div>
-</section>
-
-<section class="section" id="screens">
-  <div class="wrap">
-    <div class="section__head">
-      <div>
-        <div class="section__kicker">Главный экран</div>
-        <h2>До и после первых визитов</h2>
+  <div class="demo">
+    <header class="demo__bar">
+      <div class="demo__identity">
+        <span class="demo__brand">utka<span class="brand__dot"></span></span>
+        <span class="demo__kicker">интерактивный прототип</span>
       </div>
-      <p class="section__note">Один экран, два состояния. Меняются только данные: содержимое экранов живёт в <code>data.js</code>, стиль — в CSS-токенах.</p>
-    </div>
-    <div class="duo">
-      <div class="screen-card">
-        <div class="screen-frame"><img src="exports/screens-2x/utka-guest.png" alt="Экран UTKA до первого визита"></div>
-        <div class="screen-card__cap">
-          <h3>До первого визита</h3>
-          <p>Утка ждёт гостя, банка зёрен пуста, купон «на знакомство» дремлет до первого визита.</p>
-          <ul class="screen-card__list">
-            <li>«Пока без уровня» — четыре неактивные лапки</li>
-            <li>Купон «ЖДЁТ ПЕРВОГО ВИЗИТА»: второй кофе за 99 ₽</li>
-            <li>Кофейня рядом: 6 минут пешком</li>
-          </ul>
+
+      <div class="segmented" role="group" aria-label="Состояние гостя">
+        <button class="segmented__btn is-active" type="button" data-state-btn="guest" aria-pressed="true">До визита</button>
+        <button class="segmented__btn" type="button" data-state-btn="regular" aria-pressed="false">3 визита</button>
+      </div>
+
+      <p class="demo__hint">Клавиши 1 / 2 · QR, помощь и чат работают</p>
+    </header>
+
+    <div class="device">
+      <div class="screen" id="screen" data-state="guest">
+
+        <header class="chrome">
+          <div class="statusbar" aria-hidden="true">
+            <span class="statusbar__time">9:41</span>
+            <svg class="statusbar__icons" viewBox="0 0 66 14" width="66" height="14">
+              <g fill="currentColor">
+                <rect x=".5" y="8.4" width="2.7" height="4.6" rx="1"/>
+                <rect x="4.7" y="6.1" width="2.7" height="6.9" rx="1"/>
+                <rect x="8.9" y="3.8" width="2.7" height="9.2" rx="1"/>
+                <rect x="13.1" y="1.5" width="2.7" height="11.5" rx="1"/>
+              </g>
+              <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round">
+                <path d="M21.8 6.5c3.7-3.3 9.8-3.3 13.5 0"/>
+                <path d="M24.4 9.3c2.9-2.5 7.4-2.5 10.3 0"/>
+                <path d="M27.2 12c1.7-1.4 4.3-1.4 6 0"/>
+              </g>
+              <circle cx="30.2" cy="14.1" r="1.25" fill="currentColor"/>
+              <rect x="39.3" y="3.6" width="23.2" height="11.2" rx="3.2" fill="none" stroke="currentColor" stroke-opacity=".38" stroke-width="1.2"/>
+              <rect x="41" y="5.3" width="17.5" height="7.8" rx="1.8" fill="currentColor"/>
+              <path d="M64.2 6.6v3.9c1.1-.4 1.1-3.5 0-3.9Z" fill="currentColor" fill-opacity=".38"/>
+            </svg>
+          </div>
+
+          <div class="appbar">
+            <span class="brand" aria-label="UTKA">utka<span class="brand__dot"></span></span>
+            <div class="appbar__actions">
+              <button class="beanbank" type="button" data-sheet="beans" data-count="0" aria-label="Банка зёрен: пусто">
+                <svg class="icon beanbank__jar" aria-hidden="true"><use href="#i-jar"/></svg>
+                <span class="beanbank__label">Банка зёрен</span>
+              </button>
+              <button class="helpbtn" type="button" data-sheet="help" aria-label="Как работает программа лояльности">
+                <span aria-hidden="true">?</span>
+              </button>
+            </div>
+          </div>
+        </header>
+
+        <main class="scroll" id="scroll">
+          <section class="hero" aria-labelledby="duckLabel">
+            <div class="hero__arch" aria-hidden="true"></div>
+            <div class="hero__sill" aria-hidden="true"></div>
+
+            <div class="hero__copy">
+              <p class="eyebrow hero__eyebrow" id="duckLabel"><span class="eyebrow__dot"></span>Твоя утка</p>
+              <p class="duck-quote" id="duckQuote">Жду. Столик у окна уже присмотрела.</p>
+            </div>
+
+            <div class="hero__duck" aria-hidden="true">
+              <span class="duck-shadow"></span>
+              <img class="duck duck--base is-visible" src="assets/utka-duck-base.png" alt="" width="660" height="1240">
+              <img class="duck duck--apron" src="assets/utka-duck-apron.png" alt="" width="660" height="1240">
+            </div>
+          </section>
+
+          <section class="level" aria-labelledby="levelTitle">
+            <div class="level__meta">
+              <span class="eyebrow">Уровень</span>
+              <span class="level__window">визиты за 30 дней</span>
+            </div>
+            <div class="level__main">
+              <h1 class="level__title" id="levelTitle">Пока без уровня</h1>
+              <div class="paws" id="paws" role="img" aria-label="0 из 4 лапок"></div>
+            </div>
+            <p class="level__caption" id="levelCaption">Первый визит с QR — первая лапка</p>
+          </section>
+
+          <section class="offer" id="offer" data-tone="pending" aria-labelledby="offerTitle">
+            <div class="offer__head">
+              <span class="offer__badge" id="offerBadge">
+                <svg class="icon offer__lock" aria-hidden="true"><use href="#i-lock"/></svg>
+                <span class="offer__badge-text">Ждёт первого визита</span>
+              </span>
+            </div>
+
+            <h2 class="offer__title" id="offerTitle">Тебе доступен купон на знакомство: второй кофе — за 99 ₽ вместо 350</h2>
+
+            <div class="offer__detail offer__detail--pending" id="offerDetailPending">
+              <p class="offer__desc" id="offerDescription">Сегодня кофе по обычной цене. Купон проснётся после первого визита и будет действовать 7 дней: капучино, латте, американо или флэт уайт.</p>
+            </div>
+
+            <div class="offer__detail offer__detail--active" id="offerDetailActive">
+              <div class="boxline">
+                <div class="stamps" id="stamps" role="img" aria-label="Отметки Бокса: 1 из 3"></div>
+                <span class="box-sep" aria-hidden="true"></span>
+                <div class="reward">
+                  <span class="reward__cup" aria-hidden="true">
+                    <svg class="icon"><use href="#i-cup"/></svg>
+                  </span>
+                  <span class="reward__label">бесплатно</span>
+                </div>
+              </div>
+              <p class="offer__data" id="boxData">Отметки: 1 из 3. Бокс действует до 7 августа.</p>
+            </div>
+
+            <div class="offer__foot">
+              <button class="linkbtn" type="button" data-sheet="offers">
+                <span>Все купоны и предложения</span>
+                <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </button>
+            </div>
+          </section>
+
+          <section class="savings" id="savings" aria-label="Экономия" hidden>
+            <div>
+              <h3 class="savings__title">Сэкономлено: <span class="savings__value">251 ₽</span></h3>
+              <p class="savings__note">это почти чашка капучино</p>
+            </div>
+            <svg class="icon savings__icon" aria-hidden="true"><use href="#i-cup"/></svg>
+          </section>
+
+          <section class="cafe" aria-labelledby="cafeTitle">
+            <span class="cafe__icon" aria-hidden="true">
+              <svg class="icon"><use href="#i-pin"/></svg>
+            </span>
+            <div class="cafe__text">
+              <h3 id="cafeTitle">Кофейня рядом</h3>
+              <p>6 минут пешком</p>
+            </div>
+            <span class="cafe__rule" aria-hidden="true"></span>
+          </section>
+
+          <div class="scroll-end" aria-hidden="true"></div>
+        </main>
+
+        <div class="dockwrap">
+          <div class="dock">
+            <button class="qrbtn" type="button" data-sheet="qr">
+              <svg class="icon qrbtn__icon" aria-hidden="true"><use href="#i-qr"/></svg>
+              <span>Показать QR</span>
+            </button>
+            <p class="dock__caption" id="dockCaption">на кассе — визит засчитается сам</p>
+            <button class="chatlink" type="button" data-sheet="chat">
+              <svg class="icon" aria-hidden="true"><use href="#i-chevron-down"/></svg>
+              <span>свернуть — в чат</span>
+            </button>
+          </div>
         </div>
-      </div>
-      <div class="screen-card">
-        <div class="screen-frame"><img src="exports/screens-2x/utka-regular.png" alt="Экран UTKA после трёх визитов"></div>
-        <div class="screen-card__cap">
-          <h3>После трёх визитов</h3>
-          <p>Утка в фартуке — «подмастерье». Уровень «Знакомый гость», Бокс «3+1» в работе.</p>
-          <ul class="screen-card__list">
-            <li>3 зерна в банке, 3 из 4 лапок активны</li>
-            <li>Бокс «3+1»: отметка 1 из 3, до 7 августа</li>
-            <li>Сэкономлено 251 ₽ — «почти чашка капучино»</li>
-          </ul>
+
+        <div class="homebar" aria-hidden="true"></div>
+
+        <div class="sheet-layer" id="sheetLayer" hidden>
+          <div class="sheet-backdrop" data-close-sheet></div>
+          <section class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle" tabindex="-1">
+            <div class="sheet__handle" aria-hidden="true"></div>
+            <div class="sheet__content" id="sheetContent"></div>
+          </section>
         </div>
-      </div>
-    </div>
-  </div>
-</section>
 
-<section class="section" id="character">
-  <div class="wrap">
-    <div class="section__head">
-      <div>
-        <div class="section__kicker">Персонаж</div>
-        <h2>Одна утка, два состояния</h2>
       </div>
-      <p class="section__note">3D-рендеры: один ракурс, один свет, один масштаб. Фартук — не плоская наклейка, а объёмная деталь модели.</p>
     </div>
-    <div class="char">
-      <figure class="char-card">
-        <img src="assets/utka-duck-base.png" alt="Утка без фартука — 3D-рендер с прозрачным фоном">
-        <figcaption>Без фартука · до первого визита</figcaption>
-      </figure>
-      <figure class="char-card">
-        <img src="assets/utka-duck-apron.png" alt="Утка в фартуке — 3D-рендер с прозрачным фоном">
-        <figcaption>В фартуке · после трёх визитов</figcaption>
-      </figure>
-      <figure class="char-card">
-        <img src="assets/utka-avatar.png" alt="Аватар утки для чата">
-        <figcaption>Аватар для чата</figcaption>
-      </figure>
-    </div>
-    <p class="char-note">В изображениях персонажа нет текста — вся типографика живёт в интерфейсе. Оба кадра выровнены по одной маске, поэтому при переключении состояния утка не «прыгает»: меняется только фартук.</p>
-  </div>
-</section>
 
-<section class="section" id="system">
-  <div class="wrap">
-    <div class="section__head">
-      <div>
-        <div class="section__kicker">Дизайн-система</div>
-        <h2>Тёплая кофейная палитра</h2>
-      </div>
-      <p class="section__note">Без лишнего бежа, без бессмысленных градиентов и стекла. Молочный, крем, графит, мёд и приглушённый серо-сиреневый.</p>
-    </div>
-    <div class="tokens">
-      <div class="token"><div class="token__sw" style="background:#F5EFE5"></div><div class="token__meta"><b>Молочный</b><span>--bg · #F5EFE5</span></div></div>
-      <div class="token"><div class="token__sw" style="background:#FBF7F0"></div><div class="token__meta"><b>Сливки</b><span>--surface · #FBF7F0</span></div></div>
-      <div class="token"><div class="token__sw" style="background:#D8CFD5"></div><div class="token__meta"><b>Серо-сиреневый</b><span>--lilac · #D8CFD5</span></div></div>
-      <div class="token"><div class="token__sw" style="background:#E3A843"></div><div class="token__meta"><b>Мёд</b><span>--honey · #E3A843</span></div></div>
-      <div class="token"><div class="token__sw" style="background:#221C17"></div><div class="token__meta"><b>Эспрессо</b><span>--espresso · #221C17</span></div></div>
-    </div>
-    <div class="type-row">
-      <div class="type-row__meta"><b>Cormorant Garamond · Italic 500</b>реплики утки</div>
-      <div class="type-row__sample type-row__sample--quote">«Фартук! Теперь я подмастерье.»</div>
-    </div>
-    <div class="type-row">
-      <div class="type-row__meta"><b>Manrope · 800</b>заголовки</div>
-      <div class="type-row__sample">Знакомый гость</div>
-    </div>
-    <div class="type-row">
-      <div class="type-row__meta"><b>Manrope · 600</b>интерфейс</div>
-      <div class="type-row__sample type-row__sample--ui">Показать QR · на кассе — визит засчитается сам</div>
-    </div>
-    <div class="type-row">
-      <div class="type-row__meta"><b>Manrope · 700 Caps</b>бейджи и ярлыки</div>
-      <div class="type-row__sample type-row__sample--caption">БОКС «3+1»</div>
-    </div>
+    <footer class="demo__footer">
+      <span>Мобильный экран 390 × 844 · iOS safe areas</span>
+      <span class="demo__footer-sep" aria-hidden="true"></span>
+      <a href="about.html">О проекте</a>
+      <a href="system.html">Дизайн-система</a>
+    </footer>
   </div>
-</section>
 
-<section class="section" id="mechanics">
-  <div class="wrap">
-    <div class="section__head">
-      <div>
-        <div class="section__kicker">Логика программы</div>
-        <h2>Три механики — три разных счётчика</h2>
-      </div>
-      <p class="section__note">В интерфейсе они намеренно разведены: лапки считают визиты, зёрна копятся, отметки Бокса идут к бесплатному кофе.</p>
-    </div>
-    <div class="mech">
-      <div class="mech-card">
-        <div class="mech-card__icon">
-          <svg viewBox="0 0 24 24" fill="#9D6314"><ellipse cx="6" cy="7" rx="1.6" ry="2.2"/><ellipse cx="9.5" cy="5.6" rx="1.6" ry="2.4"/><ellipse cx="13" cy="5.6" rx="1.6" ry="2.4"/><path d="M7.5 13.5c1.8-2.6 7.2-2.6 9 0 1.2 1.7-.8 4-4.5 4s-5.7-2.3-4.5-4z"/></svg>
-        </div>
-        <h3>Лапки</h3>
-        <p>Визиты за последние 30 дней. Четыре лапки определяют уровень: «Пока без уровня» → «Знакомый гость» → «Частый гость».</p>
-      </div>
-      <div class="mech-card">
-        <div class="mech-card__icon">
-          <svg viewBox="0 0 24 24" fill="#9D6314"><path d="M7 3h10v6c0 4-2 6-5 6s-5-2-5-6V3z"/><path d="M8 3v6c0 3 1.5 4.5 4 4.5S16 12 16 9" fill="none" stroke="#9D6314" stroke-width="1.4"/><ellipse cx="5.6" cy="5.2" rx="1.4" ry="1.1" fill="#E3A843"/><ellipse cx="9.4" cy="4.2" rx="1.4" ry="1.1" fill="#E3A843"/><ellipse cx="13.2" cy="4.2" rx="1.4" ry="1.1" fill="#E3A843"/></svg>
-        </div>
-        <h3>Зёрна</h3>
-        <p>Копятся за визиты и не сгорают. Счётчик всегда в шапке — банка показывает, сколько накоплено.</p>
-      </div>
-      <div class="mech-card">
-        <div class="mech-card__icon">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#9D6314" stroke-width="1.6"><circle cx="8" cy="7" r="3.6"/><circle cx="16" cy="7" r="3.6"/><circle cx="12" cy="16.5" r="3.6"/></svg>
-        </div>
-        <h3>Отметки Бокса</h3>
-        <p>Отдельный прогресс к бесплатному кофе. Бокс «3+1»: две отметки — и четвёртый кофе бесплатно. Действует до 7 августа.</p>
-      </div>
-    </div>
-    <div class="mech-rule">Лапки, зёрна и отметки Бокса не складываются в один счётчик — на экране это три визуально разных элемента: следы, банка, кружки-отметки.</div>
-  </div>
-</section>
-
-<footer class="footer">
-  <div class="wrap">
-    <div class="brand">utka<span class="brand__dot"></span></div>
-    <div class="footer-grid">
-      <div>
-        <h3>Что в доставке</h3>
-        <ul>
-          <li><code>prototype.html</code> — интерактивный прототип двух состояний (переключение — кнопками в демо-панели)</li>
-          <li><code>system.html</code> — живая дизайн-система: токены, типографика, компоненты</li>
-          <li><code>exports/screens-2x</code>, <code>screens-3x</code> — PNG-экспорты экранов</li>
-          <li><code>exports/utka-presentation.png</code> — доска с двумя экранами рядом</li>
-          <li><code>assets/</code> — утка в двух состояниях и аватар (прозрачные PNG)</li>
-        </ul>
-      </div>
-      <div>
-        <h3>Как править</h3>
-        <ul>
-          <li>Тексты и данные — <code>data.js</code>: два объекта <code>guest</code> и <code>regular</code></li>
-          <li>Цвета, шрифты, отступы — CSS-токены в начале <code>styles/app.css</code></li>
-          <li>Всё остальное — компоненты на одном экране <code>prototype.html</code></li>
-        </ul>
-        <p class="honest" style="margin-top:18px">Честно: файла Figma в доставке нет — редактируемый деливерабл это HTML/CSS/JS (data.js + токены) и PNG-экспорты. Исходные изображения из ТЗ (test-g0, test-b31) в задании отсутствовали, поэтому макет собран по текстам брифа дословно, без выдуманной бизнес-логики.</p>
-      </div>
-    </div>
-  </div>
-</footer>
-
+  <script src="data.js"></script>
+  <script src="app.js"></script>
 </body>
 </html>
